@@ -13,7 +13,7 @@
             $this->rua =  $rua;
             $this->numero = $numero;
             $this->bairro = $bairro;
-            $this->myBD = new BD();
+            $this->myBD = BD::getInstancia();
         }
 
 
@@ -43,8 +43,10 @@
                 return $this->myBD->resgatarFrete($bairro);  
             } else{
                 echo "endereço inválido ou indisponivel";
+                return NULL;
             }
         }
+      
 
     }
 ?>

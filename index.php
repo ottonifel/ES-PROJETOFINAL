@@ -48,8 +48,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $bairroErr = "Apenas letras e espaços são permitidos";
     }
   }
+
+
+
   if($ruaErr == "" && $bairroErr == "" && $numeroErr ==""){
-  $pedido->setFrete($_POST["rua"],$_POST["numero"], $_POST["bairro"]); //posição aqui está errada pois esse comando realiza mesmo quando algo é preenchido fora dos padrões acima
+    $pedido->setFrete($_POST["rua"],$_POST["numero"], $_POST["bairro"]); //posição aqui está errada pois esse comando realiza mesmo quando algo é preenchido fora dos padrões acima
+    if($pedido->getFrete() == null){
+      $bairroErr = "Endereço inválido";
+      $ruaErr = "Endereço inválido";
+      $numeroErr = "Endereço inválido";
+    }
   }
 }
 
