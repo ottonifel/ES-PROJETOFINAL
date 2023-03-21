@@ -59,6 +59,7 @@ class BD
             $sql = "INSERT INTO Bairros (nome_bairro, valor_frete) VALUES ('" . $nome_bairro . "','" . $valor_frete . "')";
             mysqli_query($this->conexao, $sql) or die(mysqli_error($this->conexao));
         }
+        echo "ja existe um registro com a chave primaria $nome_bairro";
     }
 
     public function existeBairro($bairro)
