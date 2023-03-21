@@ -12,6 +12,7 @@
 
 <?php
 // define variables and set to empty values
+//$cont = 0;
 $ruaErr = $numeroErr = $bairroErr = "";
 $rua = $numero = $bairro = "";
 $mensagem="";
@@ -19,6 +20,7 @@ $mensagem="";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["rua"])) {
     $ruaErr = "Rua é requerido";
+    //$cont = 1;
   } else {
     $rua = test_input($_POST["rua"]);
  // checa se rua contem apenas letras e espaços
@@ -46,7 +48,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $bairroErr = "Apenas letras e espaços são permitidos";
     }
   }
-  $pedido->setFrete($_POST["rua"],$_POST["numero"], $_POST["bairro"] ); //posição aqui está errada pois esse comando realiza mesmo quando algo é preenchido fora dos padrões acima
+  if($ruaErr == "" && $bairroErr == "" && $numeroErr ==""){
+  $pedido->setFrete($_POST["rua"],$_POST["numero"], $_POST["bairro"]); //posição aqui está errada pois esse comando realiza mesmo quando algo é preenchido fora dos padrões acima
+  }
 }
 
 function test_input($data) {
