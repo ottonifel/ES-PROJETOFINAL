@@ -1,6 +1,11 @@
 <?php
-    require 'item.php';
-    require 'endereco.php';
+    namespace negocios;
+    use negocios\Item;
+    use negocios\Endereco;
+    require_once __DIR__.'/../negocios/item.php';
+    require_once __DIR__.'/../negocios/endereco.php';
+
+
 
     class Pedido{
         private $precoTotal = 0;

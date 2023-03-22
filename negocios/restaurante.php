@@ -1,4 +1,6 @@
 <?php
+    namespace negocios;
+
     class Restaurante{
         private $nome;
 

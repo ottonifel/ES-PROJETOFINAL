@@ -1,5 +1,7 @@
 <?php
-    require 'bd.php';
+    namespace negocios;
+    use persistencia\BD;
+    require_once __DIR__.'/../persistencia/bd.php';
 
     class Endereco{
         //declaracao de variáveis

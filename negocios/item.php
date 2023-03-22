@@ -1,5 +1,6 @@
 <?php
-    
+    namespace negocios;
+
     class Item{
         private $valor;
 

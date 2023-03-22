@@ -1,11 +1,14 @@
 <?php
-    require 'restaurante.php';
-    //require 'bd.php';
-    require 'pedido.php';
+    use negocios\Restaurante;
+    use negocios\Pedido;
+    use IU\AppFacade;
+    require_once __DIR__.'/../negocios/pedido.php';
+    require_once __DIR__.'/../negocios/restaurante.php';
+    require_once __DIR__.'/../IU/AppFacade.php';
     
-    //$myBD = new BD();
     $restaurante = new Restaurante("Subway");
     $pedido = new Pedido();
+    $facade = new AppFacade();
 
 
 ?>
@@ -95,23 +98,7 @@ function test_input($data) {
             <div class = "dados">
                 <h1>Pagamento</h1>
                 <?php
-                    echo "Restaurante: ";
-                    echo $restaurante->getNome(). '<br>';
-                    echo "Preço: ";
-                    echo $pedido->getPrecoItens(). '<br>';
-                    echo "\n Frete: ";
-                    echo $pedido->getFrete(). '<br>';
-                    echo "\n Preço Total: ";
-                    echo $pedido->getPrecoTotal(). '<br>';
-                ?>
-
-
-                <?php
-                    
-                    //echo $myBD->resgatarFrete("Campolim");
-                    //$facade->exibePrecoTotalPedido($pedido);
-                    
-
+                    $facade->telaDePagamento($pedido, $restaurante);
                 ?>
                 <h2>Localização</h2>
                 <?php

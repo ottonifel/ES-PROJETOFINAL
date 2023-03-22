@@ -1,5 +1,5 @@
 <?php
-
+    namespace persistencia;
 
 class BD
 {
