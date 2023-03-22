@@ -12,40 +12,39 @@
 
 <?php
 // define variables and set to empty values
-//$cont = 0;
 $ruaErr = $numeroErr = $bairroErr = "";
 $rua = $numero = $bairro = "";
-$mensagem="";
+$mensagem= "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["rua"])) {
-    $ruaErr = "Rua é requerido";
+    $ruaErr = "* Rua é requerido";
     //$cont = 1;
   } else {
     $rua = test_input($_POST["rua"]);
  // checa se rua contem apenas letras e espaços
     if (!preg_match("/^[a-zA-Z ]*$/",$rua)) {
-      $ruaErr = "Apenas letras e espaços são permitidos";
+      $ruaErr = "* Apenas letras e espaços são permitidos";
     }
   }
 
   if (empty($_POST["numero"])) {
-    $numeroErr = "Numero é requerido";
+    $numeroErr = "* Numero é requerido";
   } else {
     $numero = test_input($_POST["numero"]);
       // checa se é um número
     if (!preg_match("/^[0-9]*$/",$numero)) {
-      $numeroErr = "Apenas números permitidos";
+      $numeroErr = "* Apenas números permitidos";
     }
   }
 
   if (empty($_POST["bairro"])) {
-    $bairroErr = "Bairro é requerido";
+    $bairroErr = "* Bairro é requerido";
   } else {
     $bairro = test_input($_POST["bairro"]);
  // checa se bairro contem apenas letras e espaços
     if (!preg_match("/^[a-zA-Z ]*$/",$bairro)) {
-      $bairroErr = "Apenas letras e espaços são permitidos";
+      $bairroErr = "* Apenas letras e espaços são permitidos";
     }
   }
 
@@ -53,10 +52,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if($ruaErr == "" && $bairroErr == "" && $numeroErr ==""){
     $pedido->setFrete($_POST["rua"],$_POST["numero"], $_POST["bairro"]); //posição aqui está errada pois esse comando realiza mesmo quando algo é preenchido fora dos padrões acima
+    $mensagem = 'Endereço: Rua '.$_POST["rua"].','.$_POST["numero"].','.$_POST["bairro"];
     if($pedido->getFrete() == null){
-      $bairroErr = "Endereço inválido";
-      $ruaErr = "Endereço inválido";
-      $numeroErr = "Endereço inválido";
+      $bairroErr = "* Endereço inválido";
+      $ruaErr = "* Endereço inválido";
+      $numeroErr = "* Endereço inválido";
     }
   }
 }
@@ -122,16 +122,17 @@ function test_input($data) {
                 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
                 Rua: <input type="text" name="rua">
-                <span class="error"><font color="#AA0000">* <?php echo $ruaErr;?></font></span>
+                <span class="error"><font color="#AA0000"> <?php echo $ruaErr;?></font></span>
                 <br><br>
                 Número:
                 <input type="text" name="numero">
-                <span class="error"><font color="#AA0000">* <?php echo $numeroErr;?></font></span>
+                <span class="error"><font color="#AA0000"> <?php echo $numeroErr;?></font></span>
                 <br><br>
                 Bairro:
                 <input type="text" name="bairro">
-                <span class="error"><font color="#AA0000">* <?php echo $bairroErr;?></font></span>
+                <span class="error"><font color="#AA0000"> <?php echo $bairroErr;?></font></span>
                 <br><br>
+                <span class="error"><font color="#000000"><?php echo $mensagem. '<br>'.'<br>';?></font></span>
                 <input type="submit" name="submit" value="Submit"><br><br>
   
 

@@ -1,19 +1,21 @@
 <?php
 
+
 class BD
 {
 
     private static $instancia;
     private $conexao;
 
-    private function __construct()
+    public function __construct()
     {
         $this->conexao = $this->connectBD();
         $this->createTableBairros();
-        $this->inserirBairro("Mangal", 2.5);
-        $this->inserirBairro("Campolim", 4.8);
-        $this->inserirBairro("Centro", 5.0);
-        $this->inserirBairro("Santa Rosalia", 7.9);
+        $this->inserirBairro($this->conexao, "Mangal", 2.5);
+        $this->inserirBairro($this->conexao,"Campolim", 4.8);
+        $this->inserirBairro($this->conexao, "Centro", 5.0);
+        $this->inserirBairro($this->conexao, "Santa Rosalia", 7.9);
+        //$this->fechaBD($this->conexao);*/
     }
 
     public static function getInstancia()
@@ -28,7 +30,7 @@ class BD
     {
         $servername = "localhost";
         $username = "root";
-        $dbname = "myBD";
+        $dbname = "bdbairro";
         $psswd = "";
 
         $conn = mysqli_connect($servername, $username, $psswd, $dbname);
@@ -39,35 +41,35 @@ class BD
         return $conn;
     }
 
-    public function fechaBD()
+    public function fechaBD($conn)
     {
-        mysqli_close($this->conexao);
+        mysqli_close($conn);
     }
 
     private function createTableBairros()
     {
         $sql = "CREATE TABLE IF NOT EXISTS Bairros(
             nome_bairro VARCHAR(50) PRIMARY KEY,
-            valor_frete FLOAT,
+            valor_frete FLOAT
         )";
         mysqli_query($this->conexao, $sql);
     }
 
-    private function inserirBairro($nome_bairro, $valor_frete)
+    private function inserirBairro($conn, $nome_bairro, $valor_frete)
     {
-        if (!$this->existeBairro($nome_bairro)) {
-            $sql = "INSERT INTO Bairros (nome_bairro, valor_frete) VALUES ('" . $nome_bairro . "','" . $valor_frete . "')";
-            mysqli_query($this->conexao, $sql) or die(mysqli_error($this->conexao));
+        if (!$this->existeBairro($nome_bairro)){
+            $sql = "INSERT INTO bairros (nome_bairro, valor_frete) VALUES ('" . $nome_bairro . "','" . $valor_frete . "')";
+            mysqli_query($conn, $sql) or die(mysqli_error($conn));
         }
-        echo "ja existe um registro com a chave primaria $nome_bairro";
     }
 
     public function existeBairro($bairro)
     {
         $sql = "SELECT * FROM Bairros WHERE nome_bairro = '$bairro'";
         $result = mysqli_query($this->conexao, $sql);
-        if ($result->num_rows == 0)
+        if ($result->num_rows == 1){
             return 1;
+        }
         return 0;
     }
 

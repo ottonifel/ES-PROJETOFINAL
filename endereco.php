@@ -42,7 +42,6 @@
                 $this->bairro =  $bairro;
                 return $this->myBD->resgatarFrete($bairro);  
             } else{
-                echo "endereço inválido ou indisponivel";
                 return NULL;
             }
         }
