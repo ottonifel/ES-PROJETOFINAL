@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if($ruaErr == "" && $bairroErr == "" && $numeroErr ==""){
     $pedido->setFrete($_POST["rua"],$_POST["numero"], $_POST["bairro"]); //posição aqui está errada pois esse comando realiza mesmo quando algo é preenchido fora dos padrões acima
-    $mensagem = 'Endereço: Rua '.$_POST["rua"].','.$_POST["numero"].','.$_POST["bairro"];
+    $mensagem = 'Endereço: Rua '.$_POST["rua"].', '.$_POST["numero"].', '.$_POST["bairro"];
     if($pedido->getFrete() == null){
       $bairroErr = "* Endereço inválido";
       $ruaErr = "* Endereço inválido";

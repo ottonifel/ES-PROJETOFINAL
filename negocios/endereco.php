@@ -40,12 +40,9 @@
         }
 
         public function setBairro($bairro){
-            if($this->myBD->existeBairro($bairro)){
-                $this->bairro =  $bairro;
-                return $this->myBD->resgatarFrete($bairro);  
-            } else{
-                return NULL;
-            }
+            $this->bairro =  $bairro;
+            //return $this->myBD->resgatarFrete($bairro);  
+            //return $this->bairro;
         }
       
 

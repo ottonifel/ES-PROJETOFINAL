@@ -11,10 +11,10 @@ class BD
     {
         $this->conexao = $this->connectBD();
         $this->createTableBairros();
-        $this->inserirBairro($this->conexao, "Mangal", 2.5);
-        $this->inserirBairro($this->conexao,"Campolim", 4.8);
-        $this->inserirBairro($this->conexao, "Centro", 5.0);
-        $this->inserirBairro($this->conexao, "Santa Rosalia", 7.9);
+        // $this->inserirBairro($this->conexao, "Mangal", 2.5);
+        // $this->inserirBairro($this->conexao,"Campolim", 4.8);
+        // $this->inserirBairro($this->conexao, "Centro", 5.0);
+        // $this->inserirBairro($this->conexao, "Santa Rosalia", 7.9);
         //$this->fechaBD($this->conexao);*/
     }
 
@@ -79,6 +79,10 @@ class BD
         $result = mysqli_query($this->conexao, $sql);
         $row = mysqli_fetch_assoc($result);
         return $row['valor_frete'];
+    }
+
+    public function atualizarBdInput($nome_bairro, $valor_frete) {
+        $this->inserirBairro($this->conexao, $nome_bairro, $valor_frete);
     }
 
 }
