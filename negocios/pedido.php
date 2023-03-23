@@ -48,14 +48,17 @@
         }
 
         public function setFrete($rua, $numero, $bairro){
-            $this->frete = rand(1,10); //valor aleatório para frete
-            //atyaliza bairro no Banco de Dados
-            $this->myBD->atualizarBdInput($bairro, $this->frete);
-
-            $this->endereco->setBairro($bairro);
-            $this->endereco->setRua($rua);
-            $this->endereco->setNumero($numero);
-            $this->precoTotal = $this->precoItens + $this->frete;
+                if ($this->myBD->existeBairro($bairro)) {
+                    $this->frete = $this->myBD->resgatarFrete($bairro);
+                    $this->endereco->setBairro($bairro);
+                }else {
+                    $this->frete = rand(1, 10); //valor padrao base
+                    $this->myBD->atualizarBdInput($bairro, $this->frete);
+                    $this->endereco->setBairro($bairro);
+                }
+                $this->endereco->setRua($rua);
+                $this->endereco->setNumero($numero);
+                $this->precoTotal += $this->frete;
         }
-    }
+    }    
 ?>
