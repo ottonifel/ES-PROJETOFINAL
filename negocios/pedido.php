@@ -46,7 +46,11 @@
 
         public function setFrete($rua, $numero, $bairro){
             $this->precoTotal-=$this->frete;
-            $this->frete = $this->endereco->setBairro($bairro);
+            try{
+                $this->frete = $this->endereco->setBairro($bairro);
+            }catch(BairroInvalidoException $ex){
+                throw $ex;
+            }
             $this->endereco->setRua($rua);
             $this->endereco->setNumero($numero);
             $this->precoTotal+=$this->frete;

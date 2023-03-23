@@ -1,5 +1,6 @@
 <?php
     namespace negocios;
+    use Exception;
     use persistencia\BD;
     require_once __DIR__.'/../persistencia/bd.php';
 
@@ -44,10 +45,17 @@
                 $this->bairro =  $bairro;
                 return $this->myBD->resgatarFrete($bairro);  
             } else{
-                return NULL;
+                throw new BairroInvalidoException("Bairro ausente nos enderecos entregaveis pelo restaurante");
             }
         }
+        
       
 
+    }
+
+    class BairroInvalidoException extends Exception{
+        public function __construct($message, $code = 0, $previous = null){
+            parent::__construct($message, $code, $previous);
+        }
     }
 ?>
