@@ -10,7 +10,6 @@
      * Summary of TestePrecoTotal
      */
     class PrecoTotalTest extends TestCase {
-        
         /**
          * Testes colocam diferentes valores base dos itens do pedido, verificando assertion com o valor esperado total
          */
@@ -52,7 +51,7 @@
      * Ela calcula o valor esperado (pré definido pra cada item) de acordo com $valorBase
      */
     
-    public function calculaValorEsperado($valorBase) {
+    private function calculaValorEsperado($valorBase) {
         return ($valorBase*3) + 15;
     }
 }
