@@ -3,7 +3,8 @@
 
     use negocios\Pedido;
 
-    require_once __DIR__.'./negocios/pedido.php';
+    require_once __DIR__.'/../negocios/item.php';
+
 
 
     /**
