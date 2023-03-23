@@ -28,16 +28,31 @@ class InputUsuarioTest extends TestCase{
         $result = ValidaEndereco::validarEndereco($rua, $numero, $bairro, $ruaErr, $numeroErr, $bairroErr);
         $this->assertEquals(false, $result);    
     }
-    /*
+    
     public function testInputLongString(){
-
+        $length = 10000;
+        $bairro = $numero = $rua = $this->generateRandomString($length);
+        $ruaErr = $numeroErr = $bairroErr = "";
+        $result = ValidaEndereco::validarEndereco($rua, $numero, $bairro, $ruaErr, $numeroErr, $bairroErr);
+        $this->assertEquals(false, $result);
     }
-     */
+     
     public function testInputVazia(){
         $bairro = $rua = $numero = "";
         $ruaErr = $numeroErr = $bairroErr = "";
         $result = ValidaEndereco::validarEndereco($rua, $numero, $bairro, $ruaErr, $numeroErr, $bairroErr);
         $this->assertEquals(false, $result);   
     }
+
+    public function generateRandomString($length) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[random_int(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
 }
 ?>
