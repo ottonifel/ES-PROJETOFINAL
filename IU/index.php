@@ -3,6 +3,8 @@
     use negocios\Pedido;
     use negocios\Item;
     use IU\AppFacade;
+    use negocios\ValidaEndereco;
+    require_once __DIR__.'/../negocios/valida_endereco.php';
     require_once __DIR__.'/../negocios/pedido.php';
     require_once __DIR__.'/../negocios/restaurante.php';
     require_once __DIR__.'/../negocios/item.php';
@@ -23,49 +25,16 @@
 // define variables and set to empty values
 $ruaErr = $numeroErr = $bairroErr = "";
 $rua = $numero = $bairro = "";
-$mensagem= "";
+$mensagem = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  if (empty($_POST["rua"])) {
-    $ruaErr = "* Rua é requerido";
-    //$cont = 1;
-  } else {
-    $rua = test_input($_POST["rua"]);
- // checa se rua contem apenas letras e espaços
-    if (!preg_match("/^[a-zA-Z ]*$/",$rua)) {
-      $ruaErr = "* Apenas letras e espaços são permitidos";
-    }
-  }
+  $rua = $_POST["rua"];
+  $numero = $_POST["numero"];
+  $bairro = $_POST["bairro"];
 
-  if (empty($_POST["numero"])) {
-    $numeroErr = "* Numero é requerido";
-  } else {
-    $numero = test_input($_POST["numero"]);
-      // checa se é um número
-    if (!preg_match("/^[0-9]*$/",$numero)) {
-      $numeroErr = "* Apenas números permitidos";
-    }
-  }
-
-  if (empty($_POST["bairro"])) {
-    $bairroErr = "* Bairro é requerido";
-  } else {
-    $bairro = test_input($_POST["bairro"]);
- // checa se bairro contem apenas letras e espaços
-    if (!preg_match("/^[a-zA-Z ]*$/",$bairro)) {
-      $bairroErr = "* Apenas letras e espaços são permitidos";
-    }
-  }
-
-
-
-  if($ruaErr == "" && $bairroErr == "" && $numeroErr ==""){
-    $rua = $_POST["rua"];
-    $numero = $_POST["numero"];
-    $bairro = $_POST["bairro"];
-
-    $facade->atualizaTelaEndereco($pedido,$_POST["rua"],$_POST["numero"], $_POST["bairro"]);
-    $mensagem = 'Endereço: Rua '.$_POST["rua"].', '.$_POST["numero"].', '.$_POST["bairro"];
+  if(ValidaEndereco::validarEndereco($rua, $numero, $bairro, $ruaErr, $numeroErr, $bairroErr)){
+    $facade->atualizaTelaEndereco($pedido,$rua,$numero,$bairro);
+    $mensagem = 'Endereço: Rua '.$rua.', '.$numero.', '.$bairro;
     if($pedido->getFrete() == null){
       $bairroErr = "* Endereço inválido";
       $ruaErr = "* Endereço inválido";
@@ -74,12 +43,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 }
 
+
 function test_input($data) {
   $data = trim($data);
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
   return $data;
 }
+
+
+
 
 ?>
 
