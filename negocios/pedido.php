@@ -7,8 +7,6 @@
     require_once __DIR__.'/../negocios/item.php';
     require_once __DIR__.'/../negocios/endereco.php';
 
-
-
     class Pedido{
         private $precoTotal = 0;
         private $precoItens = 0;
@@ -18,23 +16,22 @@
 
         private $myBD; 
 
-        public function __construct(){
+        //construtor sobrecarregado com $valorUn (valor base para cálculo do valor individual de itens pré definidos)
+        public function __construct(int $valorUn){
             
             $this->endereco = new Endereco("", "", "");
             
             $this->itens = array(
-                new Item(30, "File de Frango"),
-                new Item(40, "X-tudo"),
-                new Item(10, "Refrigerante"),
+                new Item($valorUn, "File de Frango"),
+                new Item($valorUn + 10, "X-tudo"),
+                new Item($valorUn + 5, "Refrigerante"),
             );
             //acha preco total do pedido
             foreach($this->itens as $item){
-                $this->precoTotal+=$item->getValor();
+                $this->precoItens+=$item->getValor();
             }
-            $this->precoItens = $this->precoTotal;
-            $this->precoTotal+=$this->frete;
+            $this->precoItens;
             $this->myBD = BD::getInstancia();
-
         }
 
         public function getPrecoTotal(){
@@ -50,15 +47,14 @@
         }
 
         public function setFrete($rua, $numero, $bairro){
-            $this->frete = rand(1,10); //valor padrao base
+            $this->frete = rand(1,10); //valor aleatório para frete
+            //atyaliza bairro no Banco de Dados
             $this->myBD->atualizarBdInput($bairro, $this->frete);
 
             $this->endereco->setBairro($bairro);
             $this->endereco->setRua($rua);
             $this->endereco->setNumero($numero);
-            $this->precoTotal+=$this->frete;
-            
-
+            $this->precoTotal = $this->precoItens + $this->frete;
         }
     }
 ?>

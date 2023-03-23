@@ -1,16 +1,22 @@
 <?php
     use negocios\Restaurante;
     use negocios\Pedido;
+    use negocios\Item;
     use IU\AppFacade;
     require_once __DIR__.'/../negocios/pedido.php';
     require_once __DIR__.'/../negocios/restaurante.php';
+    require_once __DIR__.'/../negocios/item.php';
     require_once __DIR__.'/../IU/AppFacade.php';
     
     $restaurante = new Restaurante("Subway");
-    $pedido = new Pedido();
+
+    //pedido com 3 itens 
+    //valor 1 = $var 
+    //valor 2 = $var + 10
+    //valor 3 = $var + 5
+
+    $pedido = new Pedido(20);
     $facade = new AppFacade();
-
-
 ?>
 
 <?php
@@ -54,7 +60,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
   if($ruaErr == "" && $bairroErr == "" && $numeroErr ==""){
-    $pedido->setFrete($_POST["rua"],$_POST["numero"], $_POST["bairro"]); //posição aqui está errada pois esse comando realiza mesmo quando algo é preenchido fora dos padrões acima
+    $rua = $_POST["rua"];
+    $numero = $_POST["numero"];
+    $bairro = $_POST["bairro"];
+
+    $facade->atualizaTelaEndereco($pedido,$_POST["rua"],$_POST["numero"], $_POST["bairro"]);
     $mensagem = 'Endereço: Rua '.$_POST["rua"].', '.$_POST["numero"].', '.$_POST["bairro"];
     if($pedido->getFrete() == null){
       $bairroErr = "* Endereço inválido";
@@ -121,7 +131,7 @@ function test_input($data) {
                 <br><br>
                 <span class="error"><font color="#000000"><?php echo $mensagem. '<br>'.'<br>';?></font></span>
                 <input type="submit" name="submit" value="Submit"><br><br>
-  
+
 
 </form>
             </div>

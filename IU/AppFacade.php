@@ -16,6 +16,11 @@
                     echo "\n Preço Total: ";
                     echo $pedido->getPrecoTotal(). '<br>'; 
         }
+
+        public function atualizaTelaEndereco($pedido, $rua, $numero, $bairro){
+            $pedido->setFrete($rua,$numero, $bairro);
+    
+       }
     }
 
 ?>
