@@ -26,7 +26,7 @@ class BD
         return self::$instancia;
     }
 
-    private function connectBD()
+    public function connectBD()
     {
         $servername = "localhost";
         $username = "root";
