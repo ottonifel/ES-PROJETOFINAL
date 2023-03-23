@@ -31,6 +31,7 @@
                 $this->precoItens+=$item->getValor();
             }
             $this->precoItens;
+            $this->precoTotal = $this->precoItens + $this->frete;
             $this->myBD = BD::getInstancia();
         }
 
