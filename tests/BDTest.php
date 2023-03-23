@@ -7,6 +7,18 @@
     
     class BDTest extends TestCase{
 
+        public function testSingletonBD(){
+            $bd = BD::getInstancia();
+            $this->assertEquals(Bd::class, $bd::class);
+        }
+
+        public function testeConexaoBD(){
+            $bd = BD::getInstancia();
+            $conn = $bd->connectBD();
+            $this->assertNotNull($conn);
+            $conn = null;
+        }
+
         public function testeSelecaoTupla(){
             $pdo = new PDO('mysql:host=localhost;dbname=bdbairro', 'root', '');
 
