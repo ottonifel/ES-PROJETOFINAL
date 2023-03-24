@@ -3,13 +3,13 @@
 
     use negocios\Pedido;
 
-    require_once __DIR__.'./negocios/pedido.php';
+    require_once __DIR__.'/../negocios/pedido.php';
 
 
     /**
      * Summary of TestePrecoTotal
      */
-    class TestePrecoTotal extends TestCase {
+    class PrecoTotalTest extends TestCase {
         
         /**
          * Testes colocam diferentes valores base dos itens do pedido, verificando assertion com o valor esperado total
