@@ -1,6 +1,6 @@
 <?php
 
-    use persistencia\bd;
+    use persistencia\BD;
     use PHPUnit\Framework\TestCase;
 
     require_once(__DIR__.'/../persistencia/bd.php');
@@ -9,7 +9,7 @@
 
         public function testSingletonBD(){
             $bd = BD::getInstancia();
-            $this->assertEquals(Bd::class, $bd::class);
+            $this->assertEquals(BD::class, $bd::class);
         }
 
         public function testeConexaoBD(){
